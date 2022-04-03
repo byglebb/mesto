@@ -1,0 +1,25 @@
+.profile__add-button {
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  background-image: url("../../../images/Add_button.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-color: #000;
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 2px;
+  align-self: center;
+  position: absolute;
+  right: 0;
+}
+
+@media (max-width: 899px) {
+  .profile__add-button {
+    position: static;
+    width: 100%;
+    align-self: flex-end;
+    background-image: url("../../../images/Add_button_mobile.svg");
+    margin-top: 36px;
+  }
+}

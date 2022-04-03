@@ -1,0 +1,20 @@
+.profile__profile-info {
+  max-height: 73px;
+  min-width: 50px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  margin-left: 30px;
+  margin-top: 22px;
+  justify-content: space-between;
+}
+
+@media (max-width: 899px) {
+  .profile__profile-info {
+    align-items: center;
+    min-height: 54px;
+    margin-left: 0px;
+    margin-top: 26px;
+    width: 100%;
+  }
+}
