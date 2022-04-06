@@ -18,4 +18,11 @@
 @import url(../blocks/profile/__profile-info/_activity/profile__profile-info_activity.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__mask-group/element__mask-group.css);
+@import url(../blocks/element/__description/element__description.css);
+@import url(../blocks/element/__place/element__place.css);
+@import url(../blocks/element/__group/element__group.css);
+
 @import url(../vendor/fonts.css);
