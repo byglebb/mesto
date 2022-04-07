@@ -25,4 +25,7 @@
 @import url(../blocks/element/__place/element__place.css);
 @import url(../blocks/element/__group/element__group.css);
 
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
+
 @import url(../vendor/fonts.css);
