@@ -23,3 +23,8 @@
     margin-top: 36px;
   }
 }
+
+.profile__add-button:hover {
+  opacity: .6;
+  transition: .5s;
+}
