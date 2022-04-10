@@ -1,0 +1,22 @@
+.popup {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  position: fixed;
+  z-index: 100;
+  color: #000;
+  background: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 899px) {
+  .popup {
+    /* max-width: calc(100% - 38px); */
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+}
