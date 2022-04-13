@@ -8,7 +8,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-height: 18px;
+  /* max-height: 18px; */
   max-width: 398px;
 }
 
