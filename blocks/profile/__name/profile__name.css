@@ -1,4 +1,4 @@
-.profile__profile-info_name {
+.profile__name {
   margin: 0 0;
   padding: 0 0;
   font-style: normal;
@@ -12,7 +12,7 @@
 }
 
 @media (max-width: 899px) {
-  .profile__profile-info_name {
+  .profile__name {
     font-size: 27px;
     line-height: 33px;
     text-align: center;

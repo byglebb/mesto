@@ -1,10 +1,10 @@
-.profile__profile-info_name-change {
+.profile__name-change {
   display: flex;
   gap: 18px;
 }
 
 @media (max-width: 899px) {
-  .profile__profile-info_name-change {
+  .profile__name-change {
     justify-content: center;
     max-width: 100%;
     gap: 10px;

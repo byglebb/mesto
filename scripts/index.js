@@ -1,11 +1,11 @@
 const popupElement = document.querySelector('.popup');
-const addButton = document.querySelector('.profile__profile-info_button');
+const editButton = document.querySelector('.profile__edit-button');
 const closeButton = popupElement.querySelector('.popup__close-button');
 let formElement = document.querySelector('.popup__container');
 let nameInput = formElement.querySelector('.popup__name');
 let activityInput = formElement.querySelector('.popup__activity');
-let infoName = document.querySelector('.profile__profile-info_name');
-let infoActivity = document.querySelector('.profile__profile-info_activity');
+let infoName = document.querySelector('.profile__name');
+let infoActivity = document.querySelector('.profile__activity');
 
 function openPopup() {
   popupElement.classList.add('popup_opened');
@@ -26,11 +26,11 @@ function fillingFormFromProfile() {
   activityInput.setAttribute('value', infoActivity.textContent);
 }
 
-addButton.addEventListener('click', openPopup);
+editButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
 
 formElement.addEventListener('submit', formSubmitHandler);
 formElement.addEventListener('submit', closePopup);
 
-addButton.addEventListener('click', fillingFormFromProfile);
+editButton.addEventListener('click', fillingFormFromProfile);
 

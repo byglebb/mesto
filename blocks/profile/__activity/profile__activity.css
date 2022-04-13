@@ -1,4 +1,4 @@
-.profile__profile-info_activity {
+.profile__activity {
   margin: 0 0;
   padding: 0 0;
   font-style: normal;
@@ -13,7 +13,7 @@
 }
 
 @media (max-width: 899px) {
-  .profile__profile-info_activity {
+  .profile__activity {
     font-size: 14px;
     line-height: 17px;
     text-align: center;
