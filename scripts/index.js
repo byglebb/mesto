@@ -15,13 +15,22 @@ function closePopup() {
   popupElement.classList.remove('popup_opened');
 }
 
-addButton.addEventListener('click', openPopup);
-closeButton.addEventListener('click', closePopup);
-
 function formSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   infoName.textContent = nameInput.value;
   infoActivity.textContent = activityInput.value;
 }
 
-formElement.addEventListener('submit', formSubmitHandler); 
+function fillingFormFromProfile() {
+  nameInput.setAttribute('value', infoName.textContent);
+  activityInput.setAttribute('value', infoActivity.textContent);
+}
+
+addButton.addEventListener('click', openPopup);
+closeButton.addEventListener('click', closePopup);
+
+formElement.addEventListener('submit', formSubmitHandler);
+formElement.addEventListener('submit', closePopup);
+
+addButton.addEventListener('click', fillingFormFromProfile);
+
