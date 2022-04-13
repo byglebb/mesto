@@ -38,4 +38,6 @@
 @import url(../blocks/popup/__activity/popup__activity.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
 
+@import url(../blocks/popup/_opened/popup_opened.css);
+
 @import url(../vendor/fonts.css);
