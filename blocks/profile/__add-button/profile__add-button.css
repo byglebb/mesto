@@ -16,11 +16,10 @@
 
 @media (max-width: 899px) {
   .profile__add-button {
-    position: static;
     width: 100%;
     align-self: flex-end;
-    background-image: url("../../../images/Add_button_mobile.svg");
     margin-top: 36px;
+    background-size: 16px;
   }
 }
 

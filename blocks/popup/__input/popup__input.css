@@ -16,3 +16,7 @@
 .popup__input:focus {
   color: blue;
 }
+
+.popup__input:first-child {
+  margin-bottom: 30px;
+}

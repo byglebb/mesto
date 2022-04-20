@@ -4,7 +4,6 @@
   margin-right: auto;
   grid-auto-rows: 1fr;
   max-width: calc(100% - 400px);
-  min-height: 744px;
   margin-top: 51px;
   grid-template-columns: repeat(auto-fit, 282px);
   grid-template-rows: repeat(2, 1fr);
@@ -28,7 +27,6 @@
 @media (max-width: 899px) {
   .elements {
     max-width: calc(100% - 38px);
-    min-height: 56px;
     margin-top: 36px;
   }
 }
