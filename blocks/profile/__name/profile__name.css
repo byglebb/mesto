@@ -9,14 +9,14 @@
   white-space: nowrap;
   overflow: hidden;
   max-width: 350px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 899px) {
   .profile__name {
     font-size: 27px;
     line-height: 33px;
-    text-align: center;
     max-width: 100%;
-    margin-left: 28px;
+    padding-left: 28px;
   }
 }

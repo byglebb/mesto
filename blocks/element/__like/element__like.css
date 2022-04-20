@@ -1,4 +1,4 @@
-.element__group {
+.element__like {
   width: 22px;
   height: 19px;
   background-image: url(../../../images/Like_button.svg);
@@ -10,7 +10,7 @@
   cursor: pointer;
 }
 
-.element__group:hover {
+.element__like:hover {
   opacity: .6;
   transition: .5s;
 }
