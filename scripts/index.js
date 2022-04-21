@@ -8,9 +8,9 @@ let infoName = document.querySelector('.profile__name');
 let infoActivity = document.querySelector('.profile__activity');
 
 function openPopup() {
-  popupElement.classList.add('popup_opened');
   nameInput.value = infoName.textContent;
   activityInput.value = infoActivity.textContent;
+  popupElement.classList.add('popup_opened');
 }
 
 function closePopup() {
@@ -24,16 +24,8 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
-// function fillingFormFromProfile() {
-//   nameInput.setAttribute('value', infoName.textContent);
-//   activityInput.setAttribute('value', infoActivity.textContent);
-// }
-
 editButton.addEventListener('click', openPopup);
 closeButton.addEventListener('click', closePopup);
 
 formElement.addEventListener('submit', formSubmitHandler);
-// formElement.addEventListener('submit', closePopup);
-
-// editButton.addEventListener('click', fillingFormFromProfile);
 
