@@ -4,7 +4,6 @@
   display: flex;
   width: calc(100% - 38px);
   padding-left: 3px;
-  min-height: 23px;
   justify-content: space-between;
   margin-top: 25px;
   margin-bottom: 25px;
