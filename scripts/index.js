@@ -10,6 +10,9 @@ let infoActivity = document.querySelector('.profile__activity');
 const popupAddCard = document.querySelector('.popup_addcard');
 const addButton = document.querySelector('.profile__add-button');
 const closeButtonAddCard = popupAddCard.querySelector('.popup__close-button_addcard');
+const formAddCardElement = document.querySelector('.popup__form_addcard');
+const placeInput = formAddCardElement.querySelector('.popup__input_data_place');
+const linkInput = formAddCardElement.querySelector('.popup__input_data_link');
 
 const sectionElements = document.querySelector('.elements');
 
@@ -81,18 +84,33 @@ initialCards.forEach(function (item) {
   addDefaultElement(imageLink, placeName);
 });
 
-function openPopupAddCard () {
+function openPopupAddCard() {
   popupAddCard.classList.add('popup_opened');
-  document.removeEventListener('keyup', onDocumentKeyUp);
+  // document.removeEventListener('keyup', onDocumentKeyUp);
 }
 
 function onDocumentKeyUp(event) {
-  if (event.key === "Add") {
-    openPopupAddCard ();
+  if (event.keyCode === 107) {
+    openPopupAddCard();
   }
 }
+
+
+function formCreateHandler(evt) {
+  evt.preventDefault();
+  let currentPlaceInput = placeInput.value;
+  let currentLinkInput = linkInput.value;
+  addDefaultElement(currentLinkInput, currentPlaceInput);
+  closePopup();
+}
+
+function addNewCard() {
+
+} 
 
 addButton.addEventListener('click', openPopupAddCard);
 closeButtonAddCard.addEventListener('click', closePopup);
 document.addEventListener('keyup', onDocumentKeyUp);
+
+formAddCardElement.addEventListener('submit', formCreateHandler);
 
