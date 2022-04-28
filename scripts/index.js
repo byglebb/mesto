@@ -74,17 +74,15 @@ function addDefaultElement(imageLink, placeName) { //add input arguments
   currentElement.querySelector('.element__image').src = imageLink;
   currentElement.querySelector('.element__image').alt = placeName;
   currentElement.querySelector('.element__place').textContent = placeName;
-
-  sectionElements.append(currentElement);
+  currentElement.querySelector('.element__like').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('element__like_active');
+  });
+  sectionElements.prepend(currentElement);
 }
 
-initialCards.forEach(function (item) {
-  let imageLink = item.link;
-  let placeName = item.name;
-  addDefaultElement(imageLink, placeName);
-});
-
 function openPopupAddCard() {
+  placeInput.value = "";
+  linkInput.value = "";
   popupAddCard.classList.add('popup_opened');
   // document.removeEventListener('keyup', onDocumentKeyUp);
 }
@@ -95,7 +93,6 @@ function onDocumentKeyUp(event) {
   }
 }
 
-
 function formCreateHandler(evt) {
   evt.preventDefault();
   let currentPlaceInput = placeInput.value;
@@ -104,9 +101,15 @@ function formCreateHandler(evt) {
   closePopup();
 }
 
-function addNewCard() {
+// function addNewCard() {
 
-} 
+// } 
+
+initialCards.forEach(function (item) {
+  let imageLink = item.link;
+  let placeName = item.name;
+  addDefaultElement(imageLink, placeName);
+});
 
 addButton.addEventListener('click', openPopupAddCard);
 closeButtonAddCard.addEventListener('click', closePopup);

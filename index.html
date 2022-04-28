@@ -30,7 +30,7 @@
 			</section>
 
 			<section class="elements">
-				<article class="element">
+				<!-- <article class="element">
 					<img class="element__image" src="./images/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
 					<div class="element__description">
 						<h2 class="element__place">Карачаевск</h2>
@@ -71,7 +71,7 @@
 						<h2 class="element__place">Карачаево-Черкессия</h2>
 						<button class="element__like" type="button"></button>
 					</div>
-				</article>
+				</article> -->
 			</section>
 		</main>
 
@@ -96,8 +96,10 @@
 				<button class="popup__close-button popup__close-button_addcard" type="button"></button>
 				<h2 class="popup__title">Новое место</h2>
 				<form class="popup__form popup__form_addcard" name="popup-form-addcard">
-					<input type="text" class="popup__input popup__input_data_place" name="place-add-card" required placeholder="Название">
-					<input type="text" class="popup__input popup__input_data_link" name="link-add-card" required placeholder="Ссылка на картинку">
+					<input type="text" class="popup__input popup__input_data_place" name="place-add-card" required
+						placeholder="Название">
+					<input type="text" class="popup__input popup__input_data_link" name="link-add-card" required
+						placeholder="Ссылка на картинку">
 					<button class="popup__submit-button" type="submit">Создать</button>
 				</form>
 			</div>
@@ -107,6 +109,7 @@
 
 	<template id="default-element">
 		<article class="element">
+			<button class="element__delete-button" type="button"></button>
 			<img class="element__image">
 			<div class="element__description">
 				<h2 class="element__place"></h2>
