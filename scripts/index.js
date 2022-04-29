@@ -14,6 +14,7 @@ const formAddCardElement = document.querySelector('.popup__form_addcard');
 const placeInput = formAddCardElement.querySelector('.popup__input_data_place');
 const linkInput = formAddCardElement.querySelector('.popup__input_data_link');
 
+
 const sectionElements = document.querySelector('.elements');
 
 const initialCards = [
@@ -76,6 +77,9 @@ function addDefaultElement(imageLink, placeName) { //add input arguments
   currentElement.querySelector('.element__place').textContent = placeName;
   currentElement.querySelector('.element__like').addEventListener('click', function(evt) {
     evt.target.classList.toggle('element__like_active');
+  });
+  currentElement.querySelector('.element__delete-button').addEventListener('click', () => {
+    currentElement.remove();
   });
   sectionElements.prepend(currentElement);
 }
