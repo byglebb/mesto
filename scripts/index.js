@@ -1,11 +1,11 @@
-let popupElement = document.querySelector('.popup');
-let editButton = document.querySelector('.profile__edit-button');
-let closeButton = popupElement.querySelector('.popup__close-button');
-let formElement = document.querySelector('.popup__form');
-let nameInput = formElement.querySelector('.popup__input_data_name');
-let activityInput = formElement.querySelector('.popup__input_data_activity');
-let infoName = document.querySelector('.profile__name');
-let infoActivity = document.querySelector('.profile__activity');
+const popupElement = document.querySelector('.popup');
+const editButton = document.querySelector('.profile__edit-button');
+const closeButton = popupElement.querySelector('.popup__close-button');
+const formElement = document.querySelector('.popup__form');
+const nameInput = formElement.querySelector('.popup__input_data_name');
+const activityInput = formElement.querySelector('.popup__input_data_activity');
+const infoName = document.querySelector('.profile__name');
+const infoActivity = document.querySelector('.profile__activity');
 //------------------------------------------------------------------
 const popupAddCard = document.querySelector('.popup_addcard');
 const addButton = document.querySelector('.profile__add-button');
@@ -67,12 +67,6 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
-editButton.addEventListener('click', openPopup);
-closeButton.addEventListener('click', closePopup);
-
-formElement.addEventListener('submit', formSubmitHandler);
-//------------------------------------------------------------------------
-
 function addDefaultElement(imageLink, placeName) {
   const elementTemplate = document.querySelector('#default-element').content;
   const currentElement = elementTemplate.querySelector('.element').cloneNode(true);
@@ -116,6 +110,16 @@ function formCreateHandler(evt) {
   closePopup();
 }
 
+function openPopupImage () {
+  popupImage.classList.add('popup_opened');
+}
+
+
+editButton.addEventListener('click', openPopup);
+closeButton.addEventListener('click', closePopup);
+
+formElement.addEventListener('submit', formSubmitHandler);
+
 initialCards.forEach(function (item) {
   let imageLink = item.link;
   let placeName = item.name;
@@ -131,7 +135,4 @@ formAddCardElement.addEventListener('submit', formCreateHandler);
 closeButtonImage.addEventListener('click', closePopup);
 
 
-function openPopupImage () {
-  popupImage.classList.add('popup_opened');
-}
 
