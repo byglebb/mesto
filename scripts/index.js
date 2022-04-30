@@ -17,6 +17,9 @@ const linkInput = formAddCardElement.querySelector('.popup__input_data_link');
 const sectionElements = document.querySelector('.elements');
 
 const popupImage = document.querySelector('.popup-image');
+const popupImagePic = popupImage.querySelector('.popup-image__image');
+const popupImageTitle = popupImage.querySelector('.popup-image__title');
+const closeButtonImage = popupImage.querySelector('.popup-image__close-button');
 
 const initialCards = [
   {
@@ -53,7 +56,8 @@ function openPopup() {
 
 function closePopup() {
   popupElement.classList.remove('popup_opened');
-  popupAddCard.classList.remove('popup_opened'); //
+  popupAddCard.classList.remove('popup_opened');
+  popupImage.classList.remove('popup_opened');
 }
 
 function formSubmitHandler(evt) {
@@ -69,13 +73,16 @@ closeButton.addEventListener('click', closePopup);
 formElement.addEventListener('submit', formSubmitHandler);
 //------------------------------------------------------------------------
 
-function addDefaultElement(imageLink, placeName) { //add input arguments
+function addDefaultElement(imageLink, placeName) {
   const elementTemplate = document.querySelector('#default-element').content;
   const currentElement = elementTemplate.querySelector('.element').cloneNode(true);
 
   currentElement.querySelector('.element__image').src = imageLink;
   currentElement.querySelector('.element__image').alt = placeName;
   currentElement.querySelector('.element__image').addEventListener('click', (evt) => {
+    popupImagePic.src = imageLink;
+    popupImage.alt = placeName;
+    popupImageTitle.textContent = placeName;
     openPopupImage();
   })
   currentElement.querySelector('.element__place').textContent = placeName;
@@ -93,7 +100,6 @@ function openPopupAddCard() {
   placeInput.value = "";
   linkInput.value = "";
   popupAddCard.classList.add('popup_opened');
-  // document.removeEventListener('keyup', onDocumentKeyUp);
 }
 
 function onDocumentKeyUp(event) {
@@ -110,10 +116,6 @@ function formCreateHandler(evt) {
   closePopup();
 }
 
-// function addNewCard() {
-
-// } 
-
 initialCards.forEach(function (item) {
   let imageLink = item.link;
   let placeName = item.name;
@@ -125,6 +127,8 @@ closeButtonAddCard.addEventListener('click', closePopup);
 document.addEventListener('keyup', onDocumentKeyUp);
 
 formAddCardElement.addEventListener('submit', formCreateHandler);
+
+closeButtonImage.addEventListener('click', closePopup);
 
 
 function openPopupImage () {
