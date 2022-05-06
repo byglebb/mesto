@@ -1,52 +1,25 @@
-const popupElement = document.querySelector('.popup');
-const editButton = document.querySelector('.profile__edit-button');
-const closeButton = popupElement.querySelector('.popup__close-button');
-const formElement = document.querySelector('.popup__form');
+const popupElement = document.querySelector('.popup_profile');
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonClose = popupElement.querySelector('.popup__close-button_profile');
+const formElement = document.querySelector('.popup__form_profile');
 const nameInput = formElement.querySelector('.popup__input_data_name');
 const activityInput = formElement.querySelector('.popup__input_data_activity');
 const infoName = document.querySelector('.profile__name');
 const infoActivity = document.querySelector('.profile__activity');
 //------------------------------------------------------------------
 const popupAddCard = document.querySelector('.popup_addcard');
-const addButton = document.querySelector('.profile__add-button');
-const closeButtonAddCard = popupAddCard.querySelector('.popup__close-button_addcard');
+const buttonAdd = document.querySelector('.profile__add-button');
+const buttonCloseAddCard = popupAddCard.querySelector('.popup__close-button_addcard');
 const formAddCardElement = document.querySelector('.popup__form_addcard');
 const placeInput = formAddCardElement.querySelector('.popup__input_data_place');
 const linkInput = formAddCardElement.querySelector('.popup__input_data_link');
 
 const sectionElements = document.querySelector('.elements');
 
-const popupImage = document.querySelector('.popup-image');
-const popupImagePic = popupImage.querySelector('.popup-image__image');
-const popupImageTitle = popupImage.querySelector('.popup-image__title');
-const closeButtonImage = popupImage.querySelector('.popup-image__close-button');
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+const popupImage = document.querySelector('.popup_image');
+const popupImagePic = popupImage.querySelector('.popup__image');
+const popupImageTitle = popupImage.querySelector('.popup__title-image');
+const buttonCloseImage = popupImage.querySelector('.popup__close-button_image');
 
 function openPopup() {
   nameInput.value = infoName.textContent;
@@ -75,7 +48,7 @@ function addDefaultElement(imageLink, placeName) {
   currentElement.querySelector('.element__image').alt = placeName;
   currentElement.querySelector('.element__image').addEventListener('click', (evt) => {
     popupImagePic.src = imageLink;
-    popupImage.alt = placeName;
+    popupImagePic.alt = placeName;
     popupImageTitle.textContent = placeName;
     openPopupImage();
   })
@@ -96,16 +69,16 @@ function openPopupAddCard() {
   popupAddCard.classList.add('popup_opened');
 }
 
-function onDocumentKeyUp(event) {
-  if (event.keyCode === 107) {
-    openPopupAddCard();
-  }
-}
+// function onDocumentKeyUp(event) {
+//   if (event.keyCode === 107) {
+//     openPopupAddCard();
+//   }
+// }
 
 function formCreateHandler(evt) {
   evt.preventDefault();
-  let currentPlaceInput = placeInput.value;
-  let currentLinkInput = linkInput.value;
+  const currentPlaceInput = placeInput.value;
+  const currentLinkInput = linkInput.value;
   addDefaultElement(currentLinkInput, currentPlaceInput);
   closePopup();
 }
@@ -115,24 +88,24 @@ function openPopupImage () {
 }
 
 
-editButton.addEventListener('click', openPopup);
-closeButton.addEventListener('click', closePopup);
+buttonEdit.addEventListener('click', openPopup);
+buttonClose.addEventListener('click', closePopup);
 
 formElement.addEventListener('submit', formSubmitHandler);
 
 initialCards.forEach(function (item) {
-  let imageLink = item.link;
-  let placeName = item.name;
+  const imageLink = item.link;
+  const placeName = item.name;
   addDefaultElement(imageLink, placeName);
 });
 
-addButton.addEventListener('click', openPopupAddCard);
-closeButtonAddCard.addEventListener('click', closePopup);
-document.addEventListener('keyup', onDocumentKeyUp);
+buttonAdd.addEventListener('click', openPopupAddCard);
+buttonCloseAddCard.addEventListener('click', closePopup);
+// document.addEventListener('keyup', onDocumentKeyUp);
 
 formAddCardElement.addEventListener('submit', formCreateHandler);
 
-closeButtonImage.addEventListener('click', closePopup);
+buttonCloseImage.addEventListener('click', closePopup);
 
 
 

@@ -14,7 +14,7 @@
 }
 
 .popup__input:focus {
-  color: blue;
+  color: black;
 }
 
 .popup__input:first-child {

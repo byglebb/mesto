@@ -37,11 +37,11 @@
 			<p class="footer__copyright">&copy; 2022 Mesto Russia</p>
 		</footer>
 
-		<div class="popup">
+		<div class="popup popup_profile">
 			<div class="popup__window">
-				<button class="popup__close-button" type="button"></button>
+				<button class="popup__close-button popup__close-button_profile" type="button"></button>
 				<h2 class="popup__title">Редактировать профиль</h2>
-				<form class="popup__form" name="popup-form">
+				<form class="popup__form popup__form_profile" name="popup-form-profile">
 					<input type="text" class="popup__input popup__input_data_name" name="username" required>
 					<input type="text" class="popup__input popup__input_data_activity" name="userjob" required>
 					<button class="popup__submit-button" type="submit">Сохранить</button>
@@ -63,11 +63,11 @@
 			</div>
 		</div>
 
-		<div class="popup-image">
-			<div class="popup-image__window">
-				<img class="popup-image__image" src="#" alt="Изображение">
-				<button class="popup-image__close-button" type="button"></button>
-				<h2 class="popup-image__title"></h2>
+		<div class="popup popup_image">
+			<div class="popup__image-window">
+				<img class="popup__image" src="#" alt="Изображение">
+				<button class="popup__close-button popup__close-button_image" type="button"></button>
+				<h2 class="popup__title-image"></h2>
 			</div>
 		</div>
 
@@ -84,6 +84,7 @@
 		</article>
 	</template>
 
+	<script src="./scripts/cards.js"></script>
 	<script src="./scripts/index.js"></script>
 </body>
 
