@@ -1,9 +1,9 @@
-const popupElement = document.querySelector('.popup_profile');
+const popupProfile = document.querySelector('.popup_profile');
 const buttonEdit = document.querySelector('.profile__edit-button');
-const buttonClose = popupElement.querySelector('.popup__close-button_profile');
-const formElement = document.querySelector('.popup__form_profile');
-const nameInput = formElement.querySelector('.popup__input_data_name');
-const activityInput = formElement.querySelector('.popup__input_data_activity');
+const buttonCloseProfile = popupProfile.querySelector('.popup__close-button_profile');
+const formProfile = document.querySelector('.popup__form_profile');
+const nameInput = formProfile.querySelector('.popup__input_data_name');
+const activityInput = formProfile.querySelector('.popup__input_data_activity');
 const infoName = document.querySelector('.profile__name');
 const infoActivity = document.querySelector('.profile__activity');
 //------------------------------------------------------------------
@@ -35,23 +35,11 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-// function openPopup() {
-//   nameInput.value = infoName.textContent;
-//   activityInput.value = infoActivity.textContent;
-//   popupElement.classList.add('popup_opened');
-// }
-
-// function closePopup() {
-//   popupElement.classList.remove('popup_opened');
-//   popupAddCard.classList.remove('popup_opened');
-//   popupImage.classList.remove('popup_opened');
-// }
-
 function formSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   infoName.textContent = nameInput.value;
   infoActivity.textContent = activityInput.value;
-  closePopup(popupElement);
+  closePopup(popupProfile);
 }
 
 function addDefaultElement(imageLink, placeName) {
@@ -63,7 +51,6 @@ function addDefaultElement(imageLink, placeName) {
     popupImagePic.src = imageLink;
     popupImagePic.alt = placeName;
     popupImageTitle.textContent = placeName;
-    // openPopupImage();
     openPopup(popupImage);
   });
   currentElement.querySelector('.element__place').textContent = placeName;
@@ -73,58 +60,37 @@ function addDefaultElement(imageLink, placeName) {
   currentElement.querySelector('.element__delete-button').addEventListener('click', () => {
     currentElement.remove();
   });
-
-  // return currentElement; /////////////
-  console.log(currentElement);
-  sectionElements.prepend(currentElement); //////////////////
+  // sectionElements.prepend(currentElement); 
+  return currentElement;
 }
 
-function elementPaste(element) { /////////////
-  sectionElements.prepend(element); //////////////
-} ///////////
-
-
-// function openPopupAddCard() {
-//   placeInput.value = "";
-//   linkInput.value = "";
-//   popupAddCard.classList.add('popup_opened');
-// }
-
-// function onDocumentKeyUp(event) {
-//   if (event.keyCode === 107) {
-//     openPopupAddCard();
-//   }
-// }
+function elementPaste(element) {
+  sectionElements.prepend(element);
+}
 
 function formCreateHandler(evt) {
   evt.preventDefault();
   const currentPlaceInput = placeInput.value;
   const currentLinkInput = linkInput.value;
-  addDefaultElement(currentLinkInput, currentPlaceInput);
-  // elementPaste(currentElement); //////////////////
+  const insertElement = addDefaultElement(currentLinkInput, currentPlaceInput);
+  elementPaste(insertElement);
   closePopup(popupAddCard);
 }
 
-// function openPopupImage () {
-//   popupImage.classList.add('popup_opened');
-// }
+buttonEdit.addEventListener('click', () => openPopup(popupProfile));
 
-buttonEdit.addEventListener('click', () => openPopup(popupElement));
+buttonCloseProfile.addEventListener('click', () => closePopup(popupProfile));
 
-buttonClose.addEventListener('click', () => closePopup(popupElement));
-
-formElement.addEventListener('submit', formSubmitHandler);
+formProfile.addEventListener('submit', formSubmitHandler);
 
 initialCards.forEach(function (item) {
   const imageLink = item.link;
   const placeName = item.name;
-  addDefaultElement(imageLink, placeName);
-  // elementPaste(currentElement); //////////////
+  elementPaste(addDefaultElement(imageLink, placeName));
 });
 
 buttonAdd.addEventListener('click', () => openPopup(popupAddCard));
 buttonCloseAddCard.addEventListener('click', () => closePopup(popupAddCard));
-// document.addEventListener('keyup', onDocumentKeyUp);
 
 formAddCardElement.addEventListener('submit', formCreateHandler);
 
