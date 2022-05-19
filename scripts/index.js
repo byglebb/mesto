@@ -27,7 +27,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function SubmitHandler(evt) {
+function submitHandler(evt) {
   evt.preventDefault();
   infoName.textContent = nameInput.value;
   infoActivity.textContent = activityInput.value;
@@ -59,7 +59,7 @@ function pasteElement(element) {
   sectionElements.prepend(element);
 }
 
-function CreateHandler(evt) {
+function createHandler(evt) {
   evt.preventDefault();
   const currentPlaceInput = placeInput.value;
   const currentLinkInput = linkInput.value;
@@ -76,7 +76,7 @@ buttonEdit.addEventListener('click', () => {
 
 buttonCloseProfile.addEventListener('click', () => closePopup(popupProfile));
 
-formProfile.addEventListener('submit', SubmitHandler);
+formProfile.addEventListener('submit', submitHandler);
 
 initialCards.forEach(function (item) {
   const imageLink = item.link;
@@ -92,7 +92,7 @@ buttonAdd.addEventListener('click', () => {
 
 buttonCloseAddCard.addEventListener('click', () => closePopup(popupAddCard));
 
-formAddCardElement.addEventListener('submit', CreateHandler);
+formAddCardElement.addEventListener('submit', createHandler);
 
 buttonCloseImage.addEventListener('click', () => closePopup(popupImage));
 

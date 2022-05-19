@@ -41,9 +41,13 @@
 			<div class="popup__window">
 				<button class="popup__close-button popup__close-button_profile" type="button"></button>
 				<h2 class="popup__title">Редактировать профиль</h2>
-				<form class="popup__form popup__form_profile" name="popup-form-profile">
-					<input type="text" class="popup__input popup__input_data_name" name="username" required>
-					<input type="text" class="popup__input popup__input_data_activity" name="userjob" required>
+				<form class="popup__form popup__form_profile" name="popup-form-profile" novalidate>
+					<input type="text" class="popup__input popup__input_data_name" name="username" id="name-input" minlength="2"
+						maxlength="40" required>
+					<span class="popup__input-error name-input-error"></span>
+					<input type="text" class="popup__input popup__input_data_activity" name="userjob" id="activity-input"
+						minlength="2" maxlength="200" required>
+					<span class="popup__input-error activity-input-error"></span>
 					<button class="popup__submit-button" type="submit">Сохранить</button>
 				</form>
 			</div>
@@ -53,11 +57,13 @@
 			<div class="popup__window">
 				<button class="popup__close-button popup__close-button_addcard" type="button"></button>
 				<h2 class="popup__title">Новое место</h2>
-				<form class="popup__form popup__form_addcard" name="popup-form-addcard">
-					<input type="text" class="popup__input popup__input_data_place" name="place-add-card" required
-						placeholder="Название">
-					<input type="text" class="popup__input popup__input_data_link" name="link-add-card" required
-						placeholder="Ссылка на картинку">
+				<form class="popup__form popup__form_addcard" name="popup-form-addcard" novalidate>
+					<input type="text" class="popup__input popup__input_data_place" name="place-add-card" id="place-input"
+						minlength="2" maxlength="30" placeholder="Название" required>
+					<span class="popup__input-error place-input-error"></span>
+					<input type="url" class="popup__input popup__input_data_link" name="link-add-card" id="link-input"
+						placeholder="Ссылка на картинку" required>
+					<span class="popup__input-error link-input-error"></span>
 					<button class="popup__submit-button" type="submit">Создать</button>
 				</form>
 			</div>
@@ -85,6 +91,7 @@
 	</template>
 
 	<script src="./scripts/cards.js"></script>
+	<script src="./scripts/validate.js"></script>
 	<script src="./scripts/index.js"></script>
 </body>
 
