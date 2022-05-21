@@ -14,9 +14,9 @@
 }
 
 .popup__input:focus {
-  color: black;
+  outline: 0;
 }
 
-.popup__input:first-child {
+/* .popup__input:first-child {
   margin-bottom: 30px;
-}
+} */

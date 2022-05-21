@@ -21,10 +21,12 @@ const elementTemplate = document.querySelector('#default-element').content.query
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', onPopupKeyUp);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keyup', onPopupKeyUp);
 }
 
 function submitHandler(evt) {
@@ -66,6 +68,15 @@ function createHandler(evt) {
   const insertElement = addDefaultElement(currentLinkInput, currentPlaceInput);
   pasteElement(insertElement);
   closePopup(popupAddCard);
+}
+
+function onPopupKeyUp(event) {
+  const keyForEvent = "Escape";
+  if (event.key === keyForEvent) {
+    closePopup(popupProfile);
+    closePopup(popupAddCard);
+    closePopup(popupImage);
+  }
 }
 
 buttonEdit.addEventListener('click', () => {

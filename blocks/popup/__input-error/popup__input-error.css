@@ -1,14 +1,12 @@
 .popup__input-error {
+  margin: 0 0;
+  padding: 0 0;
   z-index: 10;
-  /* position: absolute;
-  left: 0;
-  bottom: -10px; */
+  min-height: 30px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  color: #FF0000;
-  padding-top: 5px;
-  visibility: hidden;
+  color: red;
 }
