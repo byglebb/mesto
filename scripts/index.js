@@ -19,6 +19,10 @@ const popupImageTitle = popupImage.querySelector('.popup__title-image');
 const buttonCloseImage = popupImage.querySelector('.popup__close-button_image');
 const elementTemplate = document.querySelector('#default-element').content.querySelector('.element');
 
+const overlayProfile = popupProfile.querySelector('.popup__overlay_profile');
+const overlayAddcard = popupAddCard.querySelector('.popup__overlay_addcard');
+const overlayImage = popupImage.querySelector('.popup__overlay_image');
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', onPopupKeyUp);
@@ -79,14 +83,16 @@ function onPopupKeyUp(event) {
   }
 }
 
+// function closePopupByOverlay(popup) {
+//   closePopup(popup);
+// }
+
 buttonEdit.addEventListener('click', () => {
   nameInput.value = infoName.textContent;
   activityInput.value = infoActivity.textContent;
   openPopup(popupProfile);
 });
-
 buttonCloseProfile.addEventListener('click', () => closePopup(popupProfile));
-
 formProfile.addEventListener('submit', submitHandler);
 
 initialCards.forEach(function (item) {
@@ -100,12 +106,14 @@ buttonAdd.addEventListener('click', () => {
   linkInput.value = "";
   openPopup(popupAddCard);
 });
-
 buttonCloseAddCard.addEventListener('click', () => closePopup(popupAddCard));
-
 formAddCardElement.addEventListener('submit', createHandler);
 
 buttonCloseImage.addEventListener('click', () => closePopup(popupImage));
+
+overlayProfile.addEventListener('click', () => closePopup(popupProfile));
+overlayAddcard.addEventListener('click', () => closePopup(popupAddCard));
+overlayImage.addEventListener('click' , () => closePopup(popupImage));
 
 
 
