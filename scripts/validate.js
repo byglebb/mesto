@@ -31,9 +31,12 @@ function checkInputValidity(formElement, inputElement) {
 
 function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(validationProperties.inputSelector));
+  const buttonElement = formElement.querySelector(validationProperties.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 }
@@ -47,5 +50,21 @@ function enableValidation(parameters) {
     setEventListeners(formElement);
   });
 };
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(validationProperties.inactiveButtonClass);
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove(validationProperties.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+}
 
 enableValidation(validationProperties);
