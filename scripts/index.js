@@ -23,6 +23,8 @@ const overlayProfile = popupProfile.querySelector('.popup__overlay_profile');
 const overlayAddcard = popupAddCard.querySelector('.popup__overlay_addcard');
 const overlayImage = popupImage.querySelector('.popup__overlay_image');
 
+const submitButton = popupAddCard.querySelector('.popup__submit-button'); ////////
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', onPopupKeyUp);
@@ -72,6 +74,10 @@ function createHandler(evt) {
   const insertElement = addDefaultElement(currentLinkInput, currentPlaceInput);
   pasteElement(insertElement);
   closePopup(popupAddCard);
+  if (currentPlaceInput || currentLinkInput === "") {
+    submitButton.classList.add('popup__submit-button_disabled');
+    submitButton.disabled = true;
+  }
 }
 
 function onPopupKeyUp(event) {
@@ -82,10 +88,6 @@ function onPopupKeyUp(event) {
     closePopup(popupImage);
   }
 }
-
-// function closePopupByOverlay(popup) {
-//   closePopup(popup);
-// }
 
 buttonEdit.addEventListener('click', () => {
   nameInput.value = infoName.textContent;
