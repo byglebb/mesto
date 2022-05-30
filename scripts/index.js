@@ -20,19 +20,25 @@ const classOverlay = 'popup__overlay';
 const submitButton = popupAddCard.querySelector('.popup__submit-button');
 const popups = document.querySelectorAll('.popup');
 
-import {Card, initialCards} from './cards.js';
+import { Card, initialCards } from './Card.js';
+import { enableValidation, FormValidator } from './FormValidator.js';
+
+const formValidatorEdit = new FormValidator(enableValidation, formProfile);
+formValidatorEdit.enableValidation();
+const formValidationAdd = new FormValidator(enableValidation, formAddCardElement);
+formValidationAdd.enableValidation();
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keyup', onPopupKeyUp);
-}
+    popup.classList.add('popup_opened');
+    document.addEventListener('keyup', onPopupKeyUp);
+  }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', onPopupKeyUp);
 }
 
-function submitHandler(evt) { // Сохранить (Профиль)
+function submitHandler(evt) {
   evt.preventDefault();
   infoName.textContent = nameInput.value;
   infoActivity.textContent = activityInput.value;
@@ -64,10 +70,6 @@ function submitHandler(evt) { // Сохранить (Профиль)
 //   return currentElement;
 // }
 
-function pasteElement(element) { // Вставка элемента
-  sectionElements.prepend(element);
-}
-
 // function createHandler(evt) { // создание карточки из попапа
 //   evt.preventDefault();
 //   const currentPlaceInput = placeInput.value;
@@ -81,7 +83,11 @@ function pasteElement(element) { // Вставка элемента
 //   }
 // }
 
-function createHandler(evt) { // создание карточки из попапа NEW
+function pasteElement(element) {
+  sectionElements.prepend(element);
+}
+
+function createHandler(evt) {
   evt.preventDefault();
   const insertElement = new Card(placeInput.value, linkInput.value, '#default-element', openPopup);
   const currentCardElement = insertElement.generateCard();
@@ -93,7 +99,7 @@ function createHandler(evt) { // создание карточки из попа
   }
 }
 
-function onPopupKeyUp(event) { //// ESC
+function onPopupKeyUp(event) {
   const keyForEvent = "Escape";
   if (event.key === keyForEvent) {
     closePopup(popupProfile);
@@ -102,7 +108,7 @@ function onPopupKeyUp(event) { //// ESC
   }
 }
 
-initialCards.forEach((item) => { ///////////////////////////////////////////// Class
+initialCards.forEach((item) => {
   const card = new Card(item.name, item.link, '#default-element', openPopup);
   const cardElement = card.generateCard();
   sectionElements.prepend(cardElement);
@@ -126,7 +132,7 @@ formProfile.addEventListener('submit', submitHandler);
 // initialCards.forEach(function (item) {
 //   const imageLink = item.link;
 //   const placeName = item.name;
-//   pasteElement(addDefaultElement(imageLink, placeName));  ///////////
+//   pasteElement(addDefaultElement(imageLink, placeName));
 // });
 
 buttonAdd.addEventListener('click', () => {
@@ -135,9 +141,9 @@ buttonAdd.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
 
-formAddCardElement.addEventListener('submit', createHandler); ///////
+formAddCardElement.addEventListener('submit', createHandler);
 
-export {popupImage, popupImagePic, popupImageTitle};
+export { popupImage, popupImagePic, popupImageTitle };
 
 
 
