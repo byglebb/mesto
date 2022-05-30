@@ -39,41 +39,55 @@ function submitHandler(evt) { // Сохранить (Профиль)
   closePopup(popupProfile);
 }
 
-function addDefaultElement(imageLink, placeName) { // создание карточки из массива
-  const currentElement = elementTemplate.cloneNode(true);
-  const elementImage = currentElement.querySelector('.element__image');
-  elementImage.src = imageLink;
-  elementImage.alt = placeName;
-  currentElement.querySelector('.element__place').textContent = placeName;
+// function addDefaultElement(imageLink, placeName) { // создание карточки из массива
+//   const currentElement = elementTemplate.cloneNode(true);
+//   const elementImage = currentElement.querySelector('.element__image');
+//   elementImage.src = imageLink;
+//   elementImage.alt = placeName;
+//   currentElement.querySelector('.element__place').textContent = placeName;
 
-  elementImage.addEventListener('click', (evt) => {
-    popupImagePic.src = imageLink;
-    popupImagePic.alt = placeName;
-    popupImageTitle.textContent = placeName;
-    openPopup(popupImage);
-  });
+//   elementImage.addEventListener('click', (evt) => {
+//     popupImagePic.src = imageLink;
+//     popupImagePic.alt = placeName;
+//     popupImageTitle.textContent = placeName;
+//     openPopup(popupImage);
+//   });
 
-  currentElement.querySelector('.element__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like_active');
-  });
-  currentElement.querySelector('.element__delete-button').addEventListener('click', () => {
-    currentElement.remove();
-  });
-  return currentElement;
-}
+//   currentElement.querySelector('.element__like').addEventListener('click', function (evt) {
+//     evt.target.classList.toggle('element__like_active');
+//   });
+
+//   currentElement.querySelector('.element__delete-button').addEventListener('click', () => {
+//     currentElement.remove();
+//   });
+
+//   return currentElement;
+// }
 
 function pasteElement(element) { // Вставка элемента
   sectionElements.prepend(element);
 }
 
-function createHandler(evt) { // создание карточки из попапа
+// function createHandler(evt) { // создание карточки из попапа
+//   evt.preventDefault();
+//   const currentPlaceInput = placeInput.value;
+//   const currentLinkInput = linkInput.value;
+//   const insertElement = addDefaultElement(currentLinkInput, currentPlaceInput);
+//   pasteElement(insertElement);
+//   closePopup(popupAddCard);
+//   if (currentPlaceInput || currentLinkInput === "") {
+//     submitButton.classList.add('popup__submit-button_disabled');
+//     submitButton.disabled = true;
+//   }
+// }
+
+function createHandler(evt) { // создание карточки из попапа NEW
   evt.preventDefault();
-  const currentPlaceInput = placeInput.value;
-  const currentLinkInput = linkInput.value;
-  const insertElement = addDefaultElement(currentLinkInput, currentPlaceInput);
-  pasteElement(insertElement);
+  const insertElement = new Card(placeInput.value, linkInput.value, '#default-element', openPopup);
+  const currentCardElement = insertElement.generateCard();
+  pasteElement(currentCardElement);
   closePopup(popupAddCard);
-  if (currentPlaceInput || currentLinkInput === "") {
+  if (placeInput.value || linkInput.value === "") {
     submitButton.classList.add('popup__submit-button_disabled');
     submitButton.disabled = true;
   }
@@ -89,7 +103,7 @@ function onPopupKeyUp(event) { //// ESC
 }
 
 initialCards.forEach((item) => { ///////////////////////////////////////////// Class
-  const card = new Card(item, '#default-element');
+  const card = new Card(item.name, item.link, '#default-element', openPopup);
   const cardElement = card.generateCard();
   sectionElements.prepend(cardElement);
 });
@@ -109,11 +123,11 @@ buttonEdit.addEventListener('click', () => {
 });
 formProfile.addEventListener('submit', submitHandler);
 
-initialCards.forEach(function (item) {
-  const imageLink = item.link;
-  const placeName = item.name;
-  pasteElement(addDefaultElement(imageLink, placeName));  ///////////
-});
+// initialCards.forEach(function (item) {
+//   const imageLink = item.link;
+//   const placeName = item.name;
+//   pasteElement(addDefaultElement(imageLink, placeName));  ///////////
+// });
 
 buttonAdd.addEventListener('click', () => {
   placeInput.value = "";
@@ -123,7 +137,7 @@ buttonAdd.addEventListener('click', () => {
 
 formAddCardElement.addEventListener('submit', createHandler); ///////
 
-export {popupImage, popupImagePic, popupImageTitle, openPopup};
+export {popupImage, popupImagePic, popupImageTitle};
 
 
 

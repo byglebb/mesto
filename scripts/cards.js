@@ -25,13 +25,14 @@ const initialCards = [
   }
 ];
 
-import {popupImage, popupImagePic, popupImageTitle, openPopup} from './index.js';
+import {popupImage, popupImagePic, popupImageTitle} from './index.js';
 
 class Card {
-  constructor(cards, templateSelector) {
-    this._cardName = cards.name;
-    this._cardLink = cards.link;
+  constructor(cardName, cardLink, templateSelector, openPopup) {
+    this._cardName = cardName;
+    this._cardLink = cardLink;
     this._templateSelector = templateSelector;
+    this._openPopup = openPopup;
   }
 
   _getTemplate() {
@@ -69,7 +70,7 @@ class Card {
     popupImagePic.src = this._cardLink;
     popupImagePic.alt = this._cardName;
     popupImageTitle.textContent = this._cardName;
-    openPopup(popupImage);
+    this._openPopup(popupImage);
   }
 
   generateCard() {
@@ -81,8 +82,6 @@ class Card {
     this.elementImage.src = this._cardLink;
     this.elementImage.alt = this._cardName;
     this.elementPlace.textContent = this._cardName;
-
-    console.log(this._element);
     return this._element;
   }
 
