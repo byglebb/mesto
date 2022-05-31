@@ -20,8 +20,9 @@ const classOverlay = 'popup__overlay';
 const submitButton = popupAddCard.querySelector('.popup__submit-button');
 const popups = document.querySelectorAll('.popup');
 
-import { Card, initialCards } from './Card.js';
-import { enableValidation, FormValidator } from './FormValidator.js';
+import { initialCards, enableValidation } from './constants.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
@@ -45,53 +46,11 @@ function submitHandler(evt) {
   closePopup(popupProfile);
 }
 
-// function addDefaultElement(imageLink, placeName) { // создание карточки из массива
-//   const currentElement = elementTemplate.cloneNode(true);
-//   const elementImage = currentElement.querySelector('.element__image');
-//   elementImage.src = imageLink;
-//   elementImage.alt = placeName;
-//   currentElement.querySelector('.element__place').textContent = placeName;
-
-//   elementImage.addEventListener('click', (evt) => {
-//     popupImagePic.src = imageLink;
-//     popupImagePic.alt = placeName;
-//     popupImageTitle.textContent = placeName;
-//     openPopup(popupImage);
-//   });
-
-//   currentElement.querySelector('.element__like').addEventListener('click', function (evt) {
-//     evt.target.classList.toggle('element__like_active');
-//   });
-
-//   currentElement.querySelector('.element__delete-button').addEventListener('click', () => {
-//     currentElement.remove();
-//   });
-
-//   return currentElement;
-// }
-
-// function createHandler(evt) { // создание карточки из попапа
-//   evt.preventDefault();
-//   const currentPlaceInput = placeInput.value;
-//   const currentLinkInput = linkInput.value;
-//   const insertElement = addDefaultElement(currentLinkInput, currentPlaceInput);
-//   pasteElement(insertElement);
-//   closePopup(popupAddCard);
-//   if (currentPlaceInput || currentLinkInput === "") {
-//     submitButton.classList.add('popup__submit-button_disabled');
-//     submitButton.disabled = true;
-//   }
-// }
-
-function pasteElement(element) {
-  sectionElements.prepend(element);
-}
-
 function createHandler(evt) {
   evt.preventDefault();
   const insertElement = new Card(placeInput.value, linkInput.value, '#default-element', openPopup);
   const currentCardElement = insertElement.generateCard();
-  pasteElement(currentCardElement);
+  sectionElements.prepend(currentCardElement);
   closePopup(popupAddCard);
   if (placeInput.value || linkInput.value === "") {
     submitButton.classList.add('popup__submit-button_disabled');
@@ -128,12 +87,6 @@ buttonEdit.addEventListener('click', () => {
   openPopup(popupProfile);
 });
 formProfile.addEventListener('submit', submitHandler);
-
-// initialCards.forEach(function (item) {
-//   const imageLink = item.link;
-//   const placeName = item.name;
-//   pasteElement(addDefaultElement(imageLink, placeName));
-// });
 
 buttonAdd.addEventListener('click', () => {
   placeInput.value = "";
