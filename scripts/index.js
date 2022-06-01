@@ -14,10 +14,8 @@ const sectionElements = document.querySelector('.elements');
 const popupImage = document.querySelector('.popup_image');
 const popupImagePic = popupImage.querySelector('.popup__image');
 const popupImageTitle = popupImage.querySelector('.popup__title-image');
-const elementTemplate = document.querySelector('#default-element').content.querySelector('.element');
 const classCloseButton = 'popup__close-button';
 const classOverlay = 'popup__overlay';
-const submitButton = popupAddCard.querySelector('.popup__submit-button');
 const popups = document.querySelectorAll('.popup');
 
 import { initialCards, enableValidation } from './constants.js';
@@ -31,12 +29,17 @@ formValidationAdd.enableValidation();
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    document.addEventListener('keyup', onPopupKeyUp);
+    document.addEventListener('keyup', () => onPopupKeyUp(event, popup));
   }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keyup', onPopupKeyUp);
+  document.removeEventListener('keyup', () => onPopupKeyUp(event, popup));
+}
+
+function getCurrentCardElement(name, link) {
+  const card = new Card(name, link, '#default-element', openPopup);
+  return card.generateCard();
 }
 
 function submitHandler(evt) {
@@ -48,29 +51,22 @@ function submitHandler(evt) {
 
 function createHandler(evt) {
   evt.preventDefault();
-  const insertElement = new Card(placeInput.value, linkInput.value, '#default-element', openPopup);
-  const currentCardElement = insertElement.generateCard();
-  sectionElements.prepend(currentCardElement);
+  sectionElements.prepend(getCurrentCardElement(placeInput.value, linkInput.value));
   closePopup(popupAddCard);
   if (placeInput.value || linkInput.value === "") {
-    submitButton.classList.add('popup__submit-button_disabled');
-    submitButton.disabled = true;
+    formValidationAdd.disableSubmitButton();
   }
 }
 
-function onPopupKeyUp(event) {
+function onPopupKeyUp(event, popup) {
   const keyForEvent = "Escape";
   if (event.key === keyForEvent) {
-    closePopup(popupProfile);
-    closePopup(popupAddCard);
-    closePopup(popupImage);
+    closePopup(popup);
   }
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '#default-element', openPopup);
-  const cardElement = card.generateCard();
-  sectionElements.prepend(cardElement);
+  sectionElements.prepend(getCurrentCardElement(item.name, item.link));
 });
 
 popups.forEach((popup) => {
