@@ -29,12 +29,12 @@ formValidationAdd.enableValidation();
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    document.addEventListener('keyup', () => onPopupKeyUp(event, popup));
+    document.addEventListener('keyup', onPopupKeyUp);
   }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keyup', () => onPopupKeyUp(event, popup));
+  document.removeEventListener('keyup', onPopupKeyUp);
 }
 
 function getCurrentCardElement(name, link) {
@@ -53,15 +53,14 @@ function createHandler(evt) {
   evt.preventDefault();
   sectionElements.prepend(getCurrentCardElement(placeInput.value, linkInput.value));
   closePopup(popupAddCard);
-  if (placeInput.value || linkInput.value === "") {
-    formValidationAdd.disableSubmitButton();
-  }
+  formValidationAdd.disableSubmitButton();
 }
 
-function onPopupKeyUp(event, popup) {
+function onPopupKeyUp(event) {
   const keyForEvent = "Escape";
   if (event.key === keyForEvent) {
-    closePopup(popup);
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
   }
 }
 
