@@ -22,25 +22,27 @@ import { initialCards, enableValidation } from './constants.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
+import Section from './Section.js'; ////////////////////////////////////////////
+
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
 const formValidationAdd = new FormValidator(enableValidation, formAddCardElement);
 formValidationAdd.enableValidation();
 
 function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keyup', onPopupKeyUp);
-  }
+  popup.classList.add('popup_opened');
+  document.addEventListener('keyup', onPopupKeyUp);
+}
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', onPopupKeyUp);
 }
 
-function getCurrentCardElement(name, link) {
-  const card = new Card(name, link, '#default-element', openPopup);
-  return card.generateCard();
-}
+// function getCurrentCardElement(name, link) {
+//   const card = new Card(name, link, '#default-element', openPopup);
+//   return card.generateCard();
+// }
 
 function submitHandler(evt) {
   evt.preventDefault();
@@ -49,12 +51,12 @@ function submitHandler(evt) {
   closePopup(popupProfile);
 }
 
-function createHandler(evt) {
-  evt.preventDefault();
-  sectionElements.prepend(getCurrentCardElement(placeInput.value, linkInput.value));
-  closePopup(popupAddCard);
-  formValidationAdd.disableSubmitButton();
-}
+// function createHandler(evt) {
+//   evt.preventDefault();
+//   sectionElements.prepend(getCurrentCardElement(placeInput.value, linkInput.value));
+//   closePopup(popupAddCard);
+//   formValidationAdd.disableSubmitButton();
+// }
 
 function onPopupKeyUp(event) {
   const keyForEvent = "Escape";
@@ -64,9 +66,9 @@ function onPopupKeyUp(event) {
   }
 }
 
-initialCards.forEach((item) => {
-  sectionElements.prepend(getCurrentCardElement(item.name, item.link));
-});
+// initialCards.forEach((item) => {
+//   sectionElements.prepend(getCurrentCardElement(item.name, item.link));
+// });
 
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
@@ -89,9 +91,29 @@ buttonAdd.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
 
-formAddCardElement.addEventListener('submit', createHandler);
+// formAddCardElement.addEventListener('submit', createHandler);
 
 export { popupImage, popupImagePic, popupImageTitle };
+
+//////////////////////////////////////////////////
+const initialCardsList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.name, item.link, '#default-element', openPopup);
+    const cardElement = card.generateCard();
+    initialCardsList.addItem(cardElement);
+  }
+}, sectionElements);
+
+// formAddCardElement.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
+//   // initialCardsList.renderItems();
+//   addItem(getCurrentCardElement(placeInput.value, linkInput.value));
+//   closePopup(popupAddCard);
+//   formValidationAdd.disableSubmitButton();
+// });
+
+initialCardsList.renderItems();
 
 
 
