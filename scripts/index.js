@@ -24,6 +24,7 @@ import { FormValidator } from './FormValidator.js';
 
 import Section from './Section.js'; ////////////////////////////////////////////
 import Popup from './Popup.js'; /////////////////////////////////////////////
+import PopupWithImage from './PopupWithImage.js'; //////////////////////////////
 
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
@@ -40,10 +41,10 @@ function closePopup(popup) {
   document.removeEventListener('keyup', onPopupKeyUp);
 }
 
-// function getCurrentCardElement(name, link) {
-//   const card = new Card(name, link, '#default-element', openPopup);
-//   return card.generateCard();
-// }
+function getCurrentCardElement(name, link) {
+  const card = new Card(name, link, '#default-element', openPopupImage);
+  return card.generateCard();
+}
 
 function submitHandler(evt) {
   evt.preventDefault();
@@ -102,9 +103,11 @@ export { classCloseButton, classOverlay };
 const initialCardsList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item.name, item.link, '#default-element', openPopup);
-    const cardElement = card.generateCard();
-    initialCardsList.addItem(cardElement);
+    // const card = new Card(item.name, item.link, '#default-element', openPopup);
+    // const cardElement = card.generateCard();
+    // initialCardsList.addItem(cardElement);
+    getCurrentCardElement(item.name, item.link, '#default-element', openPopupImage);
+    initialCardsList.addItem(getCurrentCardElement(item.name, item.link));
   }
 }, sectionElements);
 
@@ -141,6 +144,13 @@ buttonAdd.addEventListener('click', () => {
   openPopup(popupAddCard);
   setEventListeners(popupAddCard);
 });
+///////////////////////////////////////////////// открытие попапа с картинкой
+
+function openPopupImage(name, link) {
+  const popupWithImage = new PopupWithImage(popupImage);
+  popupWithImage.open(name, link);
+  setEventListeners(popupImage);
+}
 
 
 
