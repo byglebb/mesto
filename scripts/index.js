@@ -22,9 +22,12 @@ import { initialCards, enableValidation } from './constants.js';
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 
+const popupForm = document.querySelector('.popup__form'); /////////////////
+const popupInput = document.querySelectorAll('.popup__input'); //////////////
 import Section from './Section.js'; ////////////////////////////////////////////
 import Popup from './Popup.js'; /////////////////////////////////////////////
 import PopupWithImage from './PopupWithImage.js'; //////////////////////////////
+import PopupWithForm from './PopupWithForm.js'; /////////////////////////////
 
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
@@ -36,10 +39,10 @@ formValidationAdd.enableValidation();
 //   document.addEventListener('keyup', onPopupKeyUp);
 // }
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keyup', onPopupKeyUp);
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keyup', onPopupKeyUp);
+// }
 
 function getCurrentCardElement(name, link) {
   const card = new Card(name, link, '#default-element', openPopupImage);
@@ -98,7 +101,7 @@ formProfile.addEventListener('submit', submitHandler);
 export { popupImage, popupImagePic, popupImageTitle };
 
 ////////////////////////////////////////////////// Добавляем картоки из объекта
-export { classCloseButton, classOverlay };
+export { classCloseButton, classOverlay, placeInput, linkInput, popupForm, popupInput };
 
 const initialCardsList = new Section({
   items: initialCards,
@@ -151,6 +154,17 @@ function openPopupImage(name, link) {
   popupWithImage.open(name, link);
   setEventListeners(popupImage);
 }
+
+/////////////////////////////////////////////// Класс работы попапа с формами
+
+const popupAdd = new PopupWithForm({
+  popupSelector: popupAddCard,
+  createHandler: () => {
+    initialCardsList.addItem(getCurrentCardElement(placeInput.value, linkInput.value));
+  },
+});
+
+popupAdd.setEventListeners();
 
 
 
