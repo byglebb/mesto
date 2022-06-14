@@ -26,6 +26,7 @@ import Section from './Section.js'; ////////////////////////////////////////////
 import Popup from './Popup.js'; /////////////////////////////////////////////
 import PopupWithImage from './PopupWithImage.js'; //////////////////////////////
 import PopupWithForm from './PopupWithForm.js'; /////////////////////////////
+import UserInfo from './UserInfo.js'; ////////////////////////
 
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
@@ -37,22 +38,22 @@ formValidationAdd.enableValidation();
 //   document.addEventListener('keyup', onPopupKeyUp);
 // }
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keyup', onPopupKeyUp);
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keyup', onPopupKeyUp);
+// }
 
 function getCurrentCardElement(name, link) {
   const card = new Card(name, link, '#default-element', openPopupImage);
   return card.generateCard();
 }
 
-function submitHandler(evt) {
-  evt.preventDefault();
-  infoName.textContent = nameInput.value;
-  infoActivity.textContent = activityInput.value;
-  closePopup(popupProfile);
-}
+// function submitHandler(evt) {
+//   evt.preventDefault();
+//   infoName.textContent = nameInput.value;
+//   infoActivity.textContent = activityInput.value;
+//   closePopup(popupProfile);
+// }
 
 // function createHandler(evt) {
 //   evt.preventDefault();
@@ -86,7 +87,8 @@ function submitHandler(evt) {
 //   activityInput.value = infoActivity.textContent;
 //   openPopup(popupProfile);
 // });
-formProfile.addEventListener('submit', submitHandler);
+
+// formProfile.addEventListener('submit', submitHandler);
 
 //111111111111111111 buttonAdd.addEventListener('click', () => {
 //   placeInput.value = "";
@@ -132,16 +134,18 @@ function setEventListeners(popup) {
   currentPopup.setEventListeners();
 }
 
+const userInfo = new UserInfo(infoName, infoActivity);
+
 buttonEdit.addEventListener('click', () => {
-  nameInput.value = infoName.textContent;
-  activityInput.value = infoActivity.textContent;
+  const previousUserInfo = userInfo.getUserInfo();
+  nameInput.value = previousUserInfo.nameSelector;
+  activityInput.value = previousUserInfo.activitySelector;
   openPopup(popupProfile);
   setEventListeners(popupProfile);
 });
 
 buttonAdd.addEventListener('click', () => {
-  placeInput.value = "";
-  linkInput.value = "";
+  formValidationAdd.disableSubmitButton();
   openPopup(popupAddCard);
   setEventListeners(popupAddCard);
 });
@@ -156,13 +160,24 @@ function openPopupImage(name, link) {
 /////////////////////////////////////////////// Класс работы попапа с формами
 
 const popupAdd = new PopupWithForm({
-  createHandler: () => {
+  submitHandler: () => {
     initialCardsList.addItem(getCurrentCardElement(placeInput.value, linkInput.value));
   },
   popupSelector: popupAddCard,
 });
 
 popupAdd.setEventListeners();
+
+/////////////////////////////////////////////////////// 
+
+const popupEdit = new PopupWithForm({
+  submitHandler: () => {
+    userInfo.setUserInfo(nameInput, activityInput);
+  },
+  popupSelector: popupProfile,
+});
+
+popupEdit.setEventListeners();
 
 
 
