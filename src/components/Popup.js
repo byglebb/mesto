@@ -1,4 +1,4 @@
-import { classCloseButton, classOverlay } from './index.js';
+import { classCloseButton, classOverlay } from '../pages/index.js';
 
 export default class Popup {
   constructor(popupSelector) {

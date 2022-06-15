@@ -1,0 +1,40 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Это проект по основам работы с JS страницы сайта *Место* он нужен для отработки и понимания процессов:\r * 1. Принципов работы браузера, его архитектура (подкапотное пространство DOM, event loop и тд.).\r * 2. Верстка и логика работы с popup-элементом.\r * 2. JS: типы данных, методы и свойства.\r * 3. Работа с ветками в GIT.\r * 4. Дебаггинг.\r Проект пока мало функционален.\r В дальнейшем планируется добавить дополнительную логику, валидацию, возможно взаимодействие с сервером с подключением скриптов на JS",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byglebb/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/byglebb/mesto/issues"
+  },
+  "homepage": "https://github.com/byglebb/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.1",
+    "cssnano": "^5.1.11",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^7.0.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2"
+  },
+  "dependencies": {
+    "core-js": "^3.23.1",
+    "jquery": "^3.6.0"
+  }
+}

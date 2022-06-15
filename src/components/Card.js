@@ -1,6 +1,6 @@
-import { popupImage, popupImagePic, popupImageTitle } from './index.js';
+import { popupImage, popupImagePic, popupImageTitle } from '../pages/index.js';
 
-class Card {
+export default class Card {
   constructor(cardName, cardLink, templateSelector, handleCardClick) {
     this._cardName = cardName;
     this._cardLink = cardLink;
@@ -58,4 +58,4 @@ class Card {
 
 }
 
-export { Card };
+// export { Card };
