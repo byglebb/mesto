@@ -1,5 +1,3 @@
-import { popupImage, popupImagePic, popupImageTitle } from '../pages/index.js';
-
 export default class Card {
   constructor(cardName, cardLink, templateSelector, handleCardClick) {
     this._cardName = cardName;
@@ -38,9 +36,6 @@ export default class Card {
   }
 
   _handleOpenImagePopup() {
-    // popupImagePic.src = this._cardLink;
-    // popupImagePic.alt = this._cardName;
-    // popupImageTitle.textContent = this._cardName;
     this._handleCardClick(this._cardName, this._cardLink);
   }
 
@@ -57,5 +52,3 @@ export default class Card {
   }
 
 }
-
-// export { Card };

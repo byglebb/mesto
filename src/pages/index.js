@@ -40,7 +40,7 @@ function getCurrentCardElement(name, link) {
   return card.generateCard();
 }
 
-export { popupImage, popupImagePic, popupImageTitle, classCloseButton, classOverlay, placeInput, linkInput };
+export { placeInput, linkInput };
 
 const initialCardsList = new Section({
   items: initialCards,
