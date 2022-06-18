@@ -45,24 +45,26 @@ function getCurrentCardElement(name, link) {
 const initialCardsList = new Section({
   items: initialCards,
   renderer: (item) => {
-    getCurrentCardElement(item.name, item.link, '#default-element', openPopupImage);
-    initialCardsList.addItem(getCurrentCardElement(item.name, item.link));
+    // getCurrentCardElement(item.name, item.link, '#default-element', openPopupImage);
+    // initialCardsList.addItem(getCurrentCardElement(item.name, item.link));
+    const currentCardElement = getCurrentCardElement(item.name, item.link, '#default-element', openPopupImage);
+    initialCardsList.addItem(currentCardElement);
   }
 }, '.elements');
 
 initialCardsList.renderItems();
 
-function openPopup(popup) {
-  const popupOpen = new Popup(popup);
-  popupOpen.open();
-}
+// function openPopup(popup) { ////////////////////////
+//   const popupOpen = new Popup(popup);
+//   popupOpen.open();
+// }
 
-function setEventListeners(popup) {
-  const currentPopup = new Popup(popup);
-  currentPopup.setEventListeners();
-}
+// function setEventListeners(popup) {
+//   const currentPopup = new Popup(popup);
+//   currentPopup.setEventListeners();
+// }
 
-const userInfo = new UserInfo({ 
+const userInfo = new UserInfo({
   // nameElement: infoName, 
   // activityElement: infoActivity,
   nameElement: '.profile__name',
@@ -73,26 +75,33 @@ buttonEdit.addEventListener('click', () => {
   const previousUserInfo = userInfo.getUserInfo();
   nameInput.value = previousUserInfo.nameElement;
   activityInput.value = previousUserInfo.activityElement;
-  // openPopup(popupProfile);
   popupEdit.open();
+  // openPopup(popupProfile);
   // setEventListeners(popupProfile);
 });
 
 buttonAdd.addEventListener('click', () => {
   formValidationAdd.disableSubmitButton();
-  openPopup(popupAddCard);
-  setEventListeners(popupAddCard);
+  popupAdd.open();
+  // openPopup(popupAddCard);
+  // setEventListeners(popupAddCard);
 });
 
 function openPopupImage(name, link) {
   const popupWithImage = new PopupWithImage(popupImage);
   popupWithImage.open(name, link);
-  setEventListeners(popupImage);
+  popupWithImage.setEventListeners();
+  // setEventListeners(popupImage);
 }
 
 const popupAdd = new PopupWithForm({
-  submitHandler: () => {
-    initialCardsList.addItem(getCurrentCardElement(placeInput.value, linkInput.value));
+  // submitHandler: () => {
+  //   initialCardsList.addItem(getCurrentCardElement(placeInput.value, linkInput.value));
+  // },
+  submitHandler: (objectValues) => {
+    const valueName = objectValues["place-add-card"];
+    const valueLink = objectValues["link-add-card"];
+    initialCardsList.addItem(getCurrentCardElement(valueName, valueLink));
   },
   popupSelector: popupAddCard,
 });
@@ -100,9 +109,12 @@ const popupAdd = new PopupWithForm({
 popupAdd.setEventListeners();
 
 const popupEdit = new PopupWithForm({
-  submitHandler: () => {
+  submitHandler: (objectValues) => {
     // userInfo.setUserInfo(nameInput, activityInput);
-    userInfo.setUserInfo(nameInput.value, activityInput.value);
+    // userInfo.setUserInfo(nameInput.value, activityInput.value);
+    const valueName = objectValues["username"];
+    const valueJob = objectValues["userjob"];
+    userInfo.setUserInfo(valueName, valueJob);
   },
   popupSelector: popupProfile,
 });
