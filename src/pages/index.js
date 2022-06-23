@@ -81,6 +81,33 @@ const popupEdit = new PopupWithForm({
 
 popupEdit.setEventListeners();
 
+///////////////////////////////////////////////////////////////////////////
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-42/cards', {
+  headers: {
+    authorization: 'a2bace0a-be7d-4cc4-8ecd-6f5d9788fa19'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
+
+  fetch('https://nomoreparties.co/v1/cohort-42/users/me', {
+    headers: {
+      authorization: 'a2bace0a-be7d-4cc4-8ecd-6f5d9788fa19'
+    }
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен: ', err);
+    })
+
 
 
 
