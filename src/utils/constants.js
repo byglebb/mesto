@@ -34,4 +34,12 @@ const enableValidation = {
   errorClass: 'popup__input-error_active'
 };
 
-export {initialCards, enableValidation};
+const config = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-42',
+  headers: {
+    'Content-Type': 'application/json',
+    authorization: 'a2bace0a-be7d-4cc4-8ecd-6f5d9788fa19'
+  }
+};
+
+export { initialCards, enableValidation, config };

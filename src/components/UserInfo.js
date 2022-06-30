@@ -12,8 +12,13 @@ export default class UserInfo {
     return userInfo;
   }
 
-  setUserInfo(nameValue, activityValue) {
-    this._nameElement.textContent = nameValue;
-    this._activityElement.textContent = activityValue;
+  // setUserInfo(nameValue, activityValue) {
+  //   this._nameElement.textContent = nameValue;
+  //   this._activityElement.textContent = activityValue;
+  // }
+
+  setInfo(data) {
+    this._nameElement.textContent = data.name;
+    this._activityElement.textContent = data.about;
   }
 }
