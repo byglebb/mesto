@@ -1,12 +1,3 @@
-// const handleResponse = (res) => {
-//   if (res.ok) {
-//     return res.json();
-//   }
-//   return Promise.reject(`Ошибка: ${res.status}`);
-// }
-
-// import { data } from "browserslist";
-
 export default class Api {
   constructor(config) {
     this.url = config.url;
@@ -27,9 +18,6 @@ export default class Api {
       headers: this.headers
     })
       .then(this.handleResponse)
-      // .then((result) => {
-      //   console.log(result);
-      // });
   }
 
   addCard(data) {
@@ -47,12 +35,10 @@ export default class Api {
       headers: this.headers
     })
       .then(this.handleResponse)
-      // .then((result) => {
-      //   console.log(result);
-      // });
   }
 
   setUserInfo(objectValues) {
+    console.log(objectValues);
     return fetch(this.urlInfo, {
       method: 'PATCH',
       headers: this.headers,

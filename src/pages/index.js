@@ -15,8 +15,6 @@ import UserInfo from '../components/UserInfo.js';
 
 import './index.css';
 import Api from '../components/Api.js';
-// import { data } from 'browserslist';
-// import { info } from 'console';
 
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
@@ -119,6 +117,18 @@ function openPopupImage(name, link) {
 //     console.log('Ошибка. Запрос не выполнен: ', err);
 //   });
 
+// fetch('https://mesto.nomoreparties.co/v1/cohort-42/users/me', {
+//   method: 'PATCH',
+//   headers: {
+//     authorization: 'a2bace0a-be7d-4cc4-8ecd-6f5d9788fa19',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: 'Marie Skłodowska Curie',
+//     about: 'Physicist and Chemist'
+//   })
+// });
+
 const api = new Api(config);
 api.getInitialCards();
 api.getUserInfo();
@@ -128,8 +138,8 @@ let userId;
 const popupEdit = new PopupWithForm({
   submitHandler: (objectValues) => {
     api.setUserInfo(objectValues)
-      .then(data => {
-        userInfo.setInfo(data);
+      .then(userDataInfo => {
+        userInfo.setInfo(userDataInfo);
       })
       .catch((err) => {
         console.log('Ошибка. Запрос не выполнен: ', err);
@@ -144,14 +154,12 @@ const popupAdd = new PopupWithForm({
   submitHandler: (objectValues) => {
     api.addCard(objectValues)
       .then(data => {
-        renderCards.addItem(data);
+        console.log(data);
+        initialCardsList.addItem(data);
       })
       .catch((err) => {
         console.log('Ошибка. Запрос не выполнен: ', err);
-      })
-    // const valueName = objectValues["place-add-card"];
-    // const valueLink = objectValues["link-add-card"];
-    // initialCardsList.addItem(getCurrentCardElement(valueName, valueLink));
+      });
   },
   popupSelector: '.popup_addcard',
 });
@@ -162,29 +170,18 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([cards, userDataInfo]) => {
     userInfo.setInfo(userDataInfo);
     userId = userDataInfo._id;
-    console.log(cards);
-    console.log(userDataInfo);
-    const initialCardsList = new Section({
-      items: cards,
-      renderer: (item) => {
-        const currentCardElement = getCurrentCardElement(item.name, item.link, '#default-element', openPopupImage);
-        initialCardsList.addItem(currentCardElement);
-      }
-    }, '.elements');
-    initialCardsList.renderItems();
+    initialCardsList.renderItems(cards);
   })
   .catch((err) => {
     console.log('Ошибка. Запрос не выполнен: ', err);
   })
 
-// const renderCards = new Section({
-//   items: cards,
-//   renderer: (item) => {
-//     const currentCardElement = getCurrentCardElement(item.name, item.link, '#default-element', openPopupImage);
-//     initialCardsList.addItem(currentCardElement);
-//   }
-// }, '.elements');
-
+const initialCardsList = new Section({
+  renderer: (item) => {
+    const currentCardElement = getCurrentCardElement(item.name, item.link, '#default-element', openPopupImage);
+    initialCardsList.addItem(currentCardElement);
+  }
+}, '.elements');
 
 
 
