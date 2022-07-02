@@ -154,8 +154,7 @@ const popupAdd = new PopupWithForm({
   submitHandler: (objectValues) => {
     api.addCard(objectValues)
       .then(data => {
-        console.log(data);
-        initialCardsList.addItem(data);
+        initialCardsList.addItem(getCurrentCardElement(data.name, data.link));
       })
       .catch((err) => {
         console.log('Ошибка. Запрос не выполнен: ', err);

@@ -38,7 +38,6 @@ export default class Api {
   }
 
   setUserInfo(objectValues) {
-    console.log(objectValues);
     return fetch(this.urlInfo, {
       method: 'PATCH',
       headers: this.headers,
