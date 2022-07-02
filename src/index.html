@@ -59,8 +59,8 @@
 				<button class="popup__close-button popup__close-button_addcard" type="button"></button>
 				<h2 class="popup__title">Новое место</h2>
 				<form class="popup__form popup__form_addcard" name="popup-form-addcard" novalidate>
-					<input type="text" class="popup__input popup__input_data_place" name="name" id="place-input"
-						minlength="2" maxlength="30" placeholder="Название" required>
+					<input type="text" class="popup__input popup__input_data_place" name="name" id="place-input" minlength="2"
+						maxlength="30" placeholder="Название" required>
 					<span class="popup__input-error place-input-error"></span>
 					<input type="url" class="popup__input popup__input_data_link" name="link" id="link-input"
 						placeholder="Ссылка на картинку" required>
@@ -87,7 +87,10 @@
 			<img class="element__image">
 			<div class="element__description">
 				<h2 class="element__place"></h2>
-				<button class="element__like" type="button"></button>
+				<div class="element__like-container">
+					<button class="element__like" type="button"></button>
+					<p class="element__like-counter">0</p>
+				</div>
 			</div>
 		</article>
 	</template>
