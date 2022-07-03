@@ -22,7 +22,18 @@ const formValidationAdd = new FormValidator(enableValidation, formAddCardElement
 formValidationAdd.enableValidation();
 
 function getCurrentCardElement(data) {
-  const card = new Card(data, '#default-element', openPopupImage);
+  const card = new Card(data, '#default-element', openPopupImage, userId, {
+    handleLikeState: (item) => {
+      api.toggleLikeButton(item._id, !card.isLiked())
+        .then(data => {
+          console.log(data);
+          card.handleLikeButton(data);
+        })
+        .catch((err) => {
+          console.log('Ошибка. Запрос не выполнен: ', err);
+        })
+    }
+  });
   return card.generateCard();
 }
 
