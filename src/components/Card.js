@@ -1,9 +1,12 @@
 export default class Card {
-  constructor(cardName, cardLink, templateSelector, handleCardClick) {
-    this._cardName = cardName;
-    this._cardLink = cardLink;
+  constructor(data, templateSelector, handleCardClick, userId) {
+    this._cardName = data.name;
+    this._cardLink = data.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._id = userId;
+    this._ownerId = data.owner._id;
+    this._likes = data.likes;
   }
 
   _getTemplate() {
@@ -48,6 +51,9 @@ export default class Card {
     this.elementImage.src = this._cardLink;
     this.elementImage.alt = this._cardName;
     this.elementPlace.textContent = this._cardName;
+
+    this._counterLikeElement = this._element.querySelector('.element__like-counter');
+    this._counterLikeElement.textContent = this._likes.length;
     return this._element;
   }
 
