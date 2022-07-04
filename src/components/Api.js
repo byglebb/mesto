@@ -21,7 +21,7 @@ export default class Api {
   }
 
   addCard(data) {
-    console.log(data);
+    // console.log(data);
     return fetch(this.urlCards, {
       method: 'POST',
       headers: this.headers,
@@ -50,7 +50,15 @@ export default class Api {
   toggleLikeButton(id, isLiked) {
     return fetch(this.urlCards + `/${id}/likes`, {
       method: isLiked ? 'PUT' : 'DELETE',
-      headers: this.headers,
+      headers: this.headers
+    })
+      .then(this.handleResponse);
+  }
+
+  deleteCard(id) {
+    return fetch(this.urlCards + `/${id}`, {
+      method: 'DELETE',
+      headers: this.headers
     })
       .then(this.handleResponse);
   }

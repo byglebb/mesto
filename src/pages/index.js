@@ -15,6 +15,7 @@ import UserInfo from '../components/UserInfo.js';
 
 import './index.css';
 import Api from '../components/Api.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
@@ -26,13 +27,28 @@ function getCurrentCardElement(data) {
     handleLikeState: (item) => {
       api.toggleLikeButton(item._id, !card.isLiked())
         .then(data => {
-          console.log(data);
+          // console.log(data);
           card.handleLikeButton(data);
         })
         .catch((err) => {
           console.log('Ошибка. Запрос не выполнен: ', err);
         })
-    }
+    },
+    handleDeletion: (item) => {
+      console.log(item);
+      popupConfirm.setConfirmHandler(() => {
+        console.log(item);
+        api.deleteCard(item._data._id)
+          .then(data => {
+            popupConfirm.close();
+            item.handleDeleteButton();
+          })
+          .catch((err) => {
+            console.log('Ошибка. Запрос не выполнен: ', err);
+          })
+      });
+      popupConfirm.open();
+    },
   });
   return card.generateCard();
 }
@@ -96,6 +112,9 @@ const popupAdd = new PopupWithForm({
 });
 
 popupAdd.setEventListeners();
+
+const popupConfirm = new PopupWithConfirm('.popup_confirmation');
+popupConfirm.setEventListeners();
 
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([cards, userDataInfo]) => {
