@@ -35,9 +35,9 @@ function getCurrentCardElement(data) {
         })
     },
     handleDeletion: (item) => {
-      console.log(item);
+      // console.log(item);
       popupConfirm.setConfirmHandler(() => {
-        console.log(item);
+        // console.log(item);
         api.deleteCard(item._data._id)
           .then(data => {
             popupConfirm.close();
@@ -121,7 +121,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
     userInfo.setInfo(userDataInfo);
     userId = userDataInfo._id;
     initialCardsList.renderItems(cards.reverse());
-    console.log(cards);
+    // console.log(cards);
   })
   .catch((err) => {
     console.log('Ошибка. Запрос не выполнен: ', err);
