@@ -20,12 +20,12 @@ export default class Api {
       .then(this.handleResponse)
   }
 
-  addCard(data) {
-    // console.log(data);
+  addCard(objectValues) {
+    // console.log(objectValues);
     return fetch(this.urlCards, {
       method: 'POST',
       headers: this.headers,
-      body: JSON.stringify(data)
+      body: JSON.stringify(objectValues)
     })
       .then(this.handleResponse)
   }
@@ -63,4 +63,12 @@ export default class Api {
       .then(this.handleResponse);
   }
 
+  updateAvatar(objectValues) {
+    return fetch(this.urlInfo + `/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify(objectValues)
+    })
+      .then(this.handleResponse);
+  }
 }

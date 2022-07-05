@@ -119,9 +119,10 @@ popupConfirm.setEventListeners();
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([cards, userDataInfo]) => {
     userInfo.setInfo(userDataInfo);
+    userInfo.setAvatarInfo(userDataInfo);
     userId = userDataInfo._id;
     initialCardsList.renderItems(cards.reverse());
-    // console.log(cards);
+    console.log(cards);
   })
   .catch((err) => {
     console.log('Ошибка. Запрос не выполнен: ', err);
