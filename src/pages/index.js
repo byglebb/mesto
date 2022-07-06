@@ -16,6 +16,7 @@ import UserInfo from '../components/UserInfo.js';
 import './index.css';
 import Api from '../components/Api.js';
 import PopupWithConfirm from '../components/PopupWithConfirm.js';
+import { data } from 'browserslist';
 
 const formValidatorEdit = new FormValidator(enableValidation, formProfile);
 formValidatorEdit.enableValidation();
@@ -116,13 +117,29 @@ popupAdd.setEventListeners();
 const popupConfirm = new PopupWithConfirm('.popup_confirmation');
 popupConfirm.setEventListeners();
 
+const popupAddAvatar = new PopupWithForm({
+  submitHandler: (objectValues) => {
+    api.updateAvatar(objectValues)
+      .then(data => {
+        userInfo.setAvatarInfo(data);
+        popupAddAvatar.close();
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен: ', err);
+      });
+  },
+  popupSelector: '.popup_avatar',
+});
+
+popupAddAvatar.setEventListeners();
+
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([cards, userDataInfo]) => {
     userInfo.setInfo(userDataInfo);
     userInfo.setAvatarInfo(userDataInfo);
     userId = userDataInfo._id;
     initialCardsList.renderItems(cards.reverse());
-    console.log(cards);
+    // console.log(cards);
   })
   .catch((err) => {
     console.log('Ошибка. Запрос не выполнен: ', err);
@@ -131,6 +148,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
 const initialCardsList = new Section({
   renderer: (item) => {
     const currentCardElement = getCurrentCardElement(item, '#default-element', openPopupImage, userId);
+    // console.log(currentCardElement);
     initialCardsList.addItem(currentCardElement);
   }
 }, '.elements');

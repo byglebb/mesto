@@ -73,7 +73,8 @@ export default class Card {
     if (!(this._userId === this._ownerId)) {
       this._elementDelete.classList.add('element__delete-button_inactive');
     }
-
+    
+    // console.log(this._element);
     return this._element;
   }
 
