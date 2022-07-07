@@ -4,7 +4,7 @@ export default class PopupWithConfirm extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
     this._formElement = this._popupElement.querySelector('.popup__form');
-    this._confirmationDelete = this._formElement.querySelector('.popup__submit-button');
+    this._submitButton = this._formElement.querySelector('.popup__submit-button');
   }
 
   setConfirmHandler(callback) {
@@ -17,5 +17,9 @@ export default class PopupWithConfirm extends Popup {
       evt.preventDefault();
       this._handleConfirm();
     })
+  }
+
+  waitingResponse(text) {
+    this._submitButton.textContent = `${text}`;
   }
 }

@@ -4,6 +4,8 @@ const nameInput = formProfile.querySelector('.popup__input_data_name');
 const activityInput = formProfile.querySelector('.popup__input_data_activity');
 const buttonAdd = document.querySelector('.profile__add-button');
 const formAddCardElement = document.querySelector('.popup__form_addcard');
+const buttonAvatar = document.querySelector('.profile__avatar-shell');
+const fromAvatar = document.querySelector('.popup__form_avatar');
 
 import { enableValidation, config } from '../utils/constants.js';
 import Card from '../components/Card.js';
@@ -16,12 +18,13 @@ import UserInfo from '../components/UserInfo.js';
 import './index.css';
 import Api from '../components/Api.js';
 import PopupWithConfirm from '../components/PopupWithConfirm.js';
-import { data } from 'browserslist';
 
-const formValidatorEdit = new FormValidator(enableValidation, formProfile);
-formValidatorEdit.enableValidation();
+const formValidationEdit = new FormValidator(enableValidation, formProfile);
+formValidationEdit.enableValidation();
 const formValidationAdd = new FormValidator(enableValidation, formAddCardElement);
 formValidationAdd.enableValidation();
+const formValidationAvatar = new FormValidator(enableValidation, fromAvatar);
+formValidationAvatar.enableValidation();
 
 function getCurrentCardElement(data) {
   const card = new Card(data, '#default-element', openPopupImage, userId, {
@@ -60,16 +63,25 @@ const userInfo = new UserInfo({
 });
 
 buttonEdit.addEventListener('click', () => {
+  formValidationEdit.disableSubmitButton();
   const previousUserInfo = userInfo.getUserInfo();
   nameInput.value = previousUserInfo.nameValue;
   activityInput.value = previousUserInfo.activityValue;
+  popupEdit.waitingResponse('Сохранить');
   popupEdit.open();
 });
 
 buttonAdd.addEventListener('click', () => {
   formValidationAdd.disableSubmitButton();
+  popupAdd.waitingResponse('Создать');
   popupAdd.open();
 });
+
+buttonAvatar.addEventListener('click', () => {
+  formValidationAvatar.disableSubmitButton();
+  popupAddAvatar.waitingResponse('Сохранить');
+  popupAddAvatar.open();
+})
 
 const popupWithImage = new PopupWithImage('.popup_image');
 popupWithImage.setEventListeners();
@@ -93,6 +105,7 @@ const popupEdit = new PopupWithForm({
       .catch((err) => {
         console.log('Ошибка. Запрос не выполнен: ', err);
       })
+      .finally(popupEdit.waitingResponse('Сохранение...'))
   },
   popupSelector: '.popup_profile',
 });
@@ -107,7 +120,8 @@ const popupAdd = new PopupWithForm({
       })
       .catch((err) => {
         console.log('Ошибка. Запрос не выполнен: ', err);
-      });
+      })
+      .finally(popupAdd.waitingResponse('Сохранение...'))
   },
   popupSelector: '.popup_addcard',
 });
@@ -126,7 +140,8 @@ const popupAddAvatar = new PopupWithForm({
       })
       .catch((err) => {
         console.log('Ошибка. Запрос не выполнен: ', err);
-      });
+      })
+      .finally(popupConfirm.waitingResponse('Сохранение...'))
   },
   popupSelector: '.popup_avatar',
 });
