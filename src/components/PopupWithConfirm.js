@@ -20,6 +20,6 @@ export default class PopupWithConfirm extends Popup {
   }
 
   waitingResponse(text) {
-    this._submitButton.textContent = `${text}`;
+    this._submitButton.textContent = text;
   }
 }

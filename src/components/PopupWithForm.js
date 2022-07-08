@@ -32,6 +32,6 @@ export default class PopupWithForm extends Popup {
   }
 
   waitingResponse(text) {
-    this._submitButton.textContent = `${text}`;
+    this._submitButton.textContent = text;
   }
 }

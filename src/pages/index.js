@@ -1,13 +1,25 @@
-const buttonEdit = document.querySelector('.profile__edit-button');
-const formProfile = document.querySelector('.popup__form_profile');
-const nameInput = formProfile.querySelector('.popup__input_data_name');
-const activityInput = formProfile.querySelector('.popup__input_data_activity');
-const buttonAdd = document.querySelector('.profile__add-button');
-const formAddCardElement = document.querySelector('.popup__form_addcard');
-const buttonAvatar = document.querySelector('.profile__avatar-shell');
-const fromAvatar = document.querySelector('.popup__form_avatar');
+import {
+  enableValidation,
+  config,
+  buttonEdit,
+  formProfile,
+  nameInput,
+  activityInput,
+  buttonAdd,
+  formAddCardElement,
+  buttonAvatar,
+  fromAvatar,
+  cardTemplateId,
+  nameSelector,
+  activitySelector,
+  popupProfileSelector,
+  popupAddcardSelector,
+  popupImageSelector,
+  popupConfirmSelector,
+  popupAvatarSelector,
+  cardsContainerSelector
+} from '../utils/constants.js';
 
-import { enableValidation, config } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -26,12 +38,30 @@ formValidationAdd.enableValidation();
 const formValidationAvatar = new FormValidator(enableValidation, fromAvatar);
 formValidationAvatar.enableValidation();
 
+function openPopupImage(name, link) {
+  popupWithImage.open(name, link);
+}
+
+const api = new Api(config);
+
+let userId;
+
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([cards, userDataInfo]) => {
+    userInfo.setInfo(userDataInfo);
+    userInfo.setAvatarInfo(userDataInfo);
+    userId = userDataInfo._id;
+    initialCardsList.renderItems(cards.reverse());
+  })
+  .catch((err) => {
+    console.log('Ошибка. Запрос не выполнен: ', err);
+  })
+
 function getCurrentCardElement(data) {
-  const card = new Card(data, '#default-element', openPopupImage, userId, {
+  const card = new Card(data, cardTemplateId, openPopupImage, userId, {
     handleLikeState: (item) => {
       api.toggleLikeButton(item._id, !card.isLiked())
         .then(data => {
-          // console.log(data);
           card.handleLikeButton(data);
         })
         .catch((err) => {
@@ -39,9 +69,8 @@ function getCurrentCardElement(data) {
         })
     },
     handleDeletion: (item) => {
-      // console.log(item);
+      popupConfirm.waitingResponse('Да');
       popupConfirm.setConfirmHandler(() => {
-        // console.log(item);
         api.deleteCard(item._data._id)
           .then(data => {
             popupConfirm.close();
@@ -50,6 +79,7 @@ function getCurrentCardElement(data) {
           .catch((err) => {
             console.log('Ошибка. Запрос не выполнен: ', err);
           })
+          .finally(popupConfirm.waitingResponse('Удаление...'))
       });
       popupConfirm.open();
     },
@@ -57,10 +87,70 @@ function getCurrentCardElement(data) {
   return card.generateCard();
 }
 
+const initialCardsList = new Section({
+  renderer: (item) => {
+    const currentCardElement = getCurrentCardElement(item, cardTemplateId, openPopupImage, userId);
+    initialCardsList.addItem(currentCardElement);
+  }
+}, cardsContainerSelector);
+
 const userInfo = new UserInfo({
-  nameSelector: '.profile__name',
-  activitySelector: '.profile__activity',
+  nameSelector: nameSelector,
+  activitySelector: activitySelector,
 });
+
+const popupWithImage = new PopupWithImage(popupImageSelector);
+
+const popupEdit = new PopupWithForm({
+  submitHandler: (objectValues) => {
+    api.setUserInfo(objectValues)
+      .then(userDataInfo => {
+        userInfo.setInfo(userDataInfo);
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен: ', err);
+      })
+      .finally(popupEdit.waitingResponse('Сохранение...'))
+  },
+  popupSelector: popupProfileSelector,
+});
+
+const popupAdd = new PopupWithForm({
+  submitHandler: (objectValues) => {
+    api.addCard(objectValues)
+      .then(data => {
+        initialCardsList.addItem(getCurrentCardElement(data));
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен: ', err);
+      })
+      .finally(popupAdd.waitingResponse('Сохранение...'))
+  },
+  popupSelector: popupAddcardSelector,
+});
+
+const popupConfirm = new PopupWithConfirm(popupConfirmSelector);
+
+const popupAddAvatar = new PopupWithForm({
+  submitHandler: (objectValues) => {
+    api.updateAvatar(objectValues)
+      .then(data => {
+        userInfo.setAvatarInfo(data);
+        popupAddAvatar.close();
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен: ', err);
+      })
+      .finally(popupConfirm.waitingResponse('Сохранение...'))
+  },
+  popupSelector: popupAvatarSelector,
+});
+
+popupWithImage.setEventListeners();
+popupEdit.setEventListeners();
+popupAdd.setEventListeners();
+popupConfirm.setEventListeners();
+popupAddAvatar.setEventListeners();
 
 buttonEdit.addEventListener('click', () => {
   formValidationEdit.disableSubmitButton();
@@ -82,92 +172,6 @@ buttonAvatar.addEventListener('click', () => {
   popupAddAvatar.waitingResponse('Сохранить');
   popupAddAvatar.open();
 })
-
-const popupWithImage = new PopupWithImage('.popup_image');
-popupWithImage.setEventListeners();
-
-function openPopupImage(name, link) {
-  popupWithImage.open(name, link);
-}
-///////////////////////////////////////////////////////////////////////////
-const api = new Api(config);
-api.getInitialCards();
-api.getUserInfo();
-
-let userId;
-
-const popupEdit = new PopupWithForm({
-  submitHandler: (objectValues) => {
-    api.setUserInfo(objectValues)
-      .then(userDataInfo => {
-        userInfo.setInfo(userDataInfo);
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      })
-      .finally(popupEdit.waitingResponse('Сохранение...'))
-  },
-  popupSelector: '.popup_profile',
-});
-
-popupEdit.setEventListeners();
-
-const popupAdd = new PopupWithForm({
-  submitHandler: (objectValues) => {
-    api.addCard(objectValues)
-      .then(data => {
-        initialCardsList.addItem(getCurrentCardElement(data));
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      })
-      .finally(popupAdd.waitingResponse('Сохранение...'))
-  },
-  popupSelector: '.popup_addcard',
-});
-
-popupAdd.setEventListeners();
-
-const popupConfirm = new PopupWithConfirm('.popup_confirmation');
-popupConfirm.setEventListeners();
-
-const popupAddAvatar = new PopupWithForm({
-  submitHandler: (objectValues) => {
-    api.updateAvatar(objectValues)
-      .then(data => {
-        userInfo.setAvatarInfo(data);
-        popupAddAvatar.close();
-      })
-      .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ', err);
-      })
-      .finally(popupConfirm.waitingResponse('Сохранение...'))
-  },
-  popupSelector: '.popup_avatar',
-});
-
-popupAddAvatar.setEventListeners();
-
-Promise.all([api.getInitialCards(), api.getUserInfo()])
-  .then(([cards, userDataInfo]) => {
-    userInfo.setInfo(userDataInfo);
-    userInfo.setAvatarInfo(userDataInfo);
-    userId = userDataInfo._id;
-    initialCardsList.renderItems(cards.reverse());
-    // console.log(cards);
-  })
-  .catch((err) => {
-    console.log('Ошибка. Запрос не выполнен: ', err);
-  })
-
-const initialCardsList = new Section({
-  renderer: (item) => {
-    const currentCardElement = getCurrentCardElement(item, '#default-element', openPopupImage, userId);
-    // console.log(currentCardElement);
-    initialCardsList.addItem(currentCardElement);
-  }
-}, '.elements');
-
 
 
 

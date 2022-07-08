@@ -13,14 +13,4 @@ export default class Section {
       this._container.append(this._renderer(item));
     })
   }
-
-  // renderItems() {
-  //   this._items.forEach(item => {
-  //     this._renderer(item);
-  //   });
-  // }
-
-  // addItem(element) {
-  //   this._container.prepend(this._renderer(element));
-  // }
 }

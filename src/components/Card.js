@@ -24,12 +24,10 @@ export default class Card {
   _setEventListeners() {
     this._elementLike = this._element.querySelector('.element__like');
     this._elementLike.addEventListener('click', () => {
-      // this._handleLikeButton();
       this._handlerLikeState(this._data);
     });
     this._elementDelete = this._element.querySelector('.element__delete-button');
     this._elementDelete.addEventListener('click', () => {
-      // this._handleDeleteButton();
       this._handlerDeleteButton(this);
     });
     this.elementImage.addEventListener('click', () => {
@@ -42,7 +40,6 @@ export default class Card {
   }
 
   handleLikeButton(data) {
-    // this._elementLike.classList.toggle('element__like_active');
     this._counterLikeElement.textContent = data.likes.length;
     this._elementLike.classList.toggle('element__like_active', !this.isLiked());
     this._likes = data.likes;
@@ -73,8 +70,6 @@ export default class Card {
     if (!(this._userId === this._ownerId)) {
       this._elementDelete.classList.add('element__delete-button_inactive');
     }
-    
-    // console.log(this._element);
     return this._element;
   }
 

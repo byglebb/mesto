@@ -6,17 +6,11 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    const userInfo = {
+    return {
       nameValue: this._nameElement.textContent,
       activityValue: this._activityElement.textContent,
     }
-    return userInfo;
   }
-
-  // setUserInfo(nameValue, activityValue) {
-  //   this._nameElement.textContent = nameValue;
-  //   this._activityElement.textContent = activityValue;
-  // }
 
   setInfo(data) {
     this._nameElement.textContent = data.name;

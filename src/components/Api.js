@@ -21,7 +21,6 @@ export default class Api {
   }
 
   addCard(objectValues) {
-    // console.log(objectValues);
     return fetch(this.urlCards, {
       method: 'POST',
       headers: this.headers,
