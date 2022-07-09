@@ -51,7 +51,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
     userInfo.setInfo(userDataInfo);
     userInfo.setAvatarInfo(userDataInfo);
     userId = userDataInfo._id;
-    initialCardsList.renderItems(cards.reverse());
+    initialCardsList.renderItems(cards);
   })
   .catch((err) => {
     console.log('Ошибка. Запрос не выполнен: ', err);
@@ -89,8 +89,8 @@ function getCurrentCardElement(data) {
 
 const initialCardsList = new Section({
   renderer: (item) => {
-    const currentCardElement = getCurrentCardElement(item, cardTemplateId, openPopupImage, userId);
-    initialCardsList.addItem(currentCardElement);
+    const currentCardElement = getCurrentCardElement(item);
+    return currentCardElement;
   }
 }, cardsContainerSelector);
 
