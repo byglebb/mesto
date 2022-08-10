@@ -62,4 +62,4 @@
 * Познакомились с протоколом HTTP и его основными типами запросов;
 * Подключили проект через Api к удаленному серверу.
 
-* [Ссылка на проект в GitHub Pages](https://byglebb.github.io/mesto/index.html)
+[Ссылка на проект в GitHub Pages](https://byglebb.github.io/mesto/index.html)
